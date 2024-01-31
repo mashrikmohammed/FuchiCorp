@@ -1,0 +1,478 @@
+.attendence-container {
+	color: #525559;
+	font-family: "DM Sans";
+	margin-top: 80px;
+	padding-left: 45px;
+	padding-right: 45px;
+	width: 100%;
+	max-width: 1800px;
+	margin-bottom: 40px;
+	position: relative;
+
+}
+
+.attendence-container h4 {
+	font-size: 40px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 120%;
+	padding-left: 10px;
+}
+
+.attendence-info {
+	padding: 0px 15px;
+	margin-top: 22px;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.attendence-info p {
+	margin-top: -1px;
+	margin-left: 6px;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: 400;
+}
+
+.select-container {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-top: -20px;
+}
+
+.info-label {
+	display: flex;
+	width: 50%;
+	gap: 20px;
+}
+
+.label-wrap {
+	display: flex;
+	gap: 20px;
+}
+
+.label-wrap-1 {
+	display: flex;
+	gap: 20px;
+}
+
+.select-container span {
+	text-align: center;
+	font-size: 16.89px;
+	font-style: italic;
+	font-weight: 400;
+}
+
+.select-box {
+	width: 192px;
+	height: 40px;
+	border: none;
+	border-radius: 12px;
+	border: 1px solid #C4C4C4;
+	background: #FFF;
+	appearance: none;
+	padding-left: 20px;
+	color: #B6B8BA;
+	font-size: 19px;
+	font-style: normal;
+	font-weight: 400;
+	outline: none;
+}
+
+.attendence-panel {
+	padding: 40px 20px;
+	border-radius: 12px;
+	border: 1px solid #C4C4C4;
+	padding-bottom: 15px;
+	background: #FFF;
+	margin-top: 7px;
+
+}
+
+.panel-head {
+	display: flex;
+	justify-content: space-between;
+	margin: 0px 20px;
+	border-bottom: 1px solid;
+}
+
+.month-select {
+	width: 220px;
+	height: 40px;
+	border: none;
+	border-radius: 12px;
+	border: 1px solid #C4C4C4;
+	background: #FFF;
+	appearance: none;
+	padding-left: 20px; 
+	color: #B6B8BA;
+	font-size: 19px;
+	font-style: normal;
+	font-weight: 400;
+	outline: none;
+}
+
+.panel-head h5 {
+	font-size: 24.413px;
+	font-style: normal;
+	font-weight: 700;
+}
+
+.attendence-panel p {
+	font-size: 20.41px;
+	font-style: normal;
+	font-weight: 700;
+}
+
+.table-container {
+	color: #525559;
+	max-width: 100%;
+	overflow-x: scroll;
+	margin: 0px 20px;
+	padding-bottom: 50px;
+	position: relative;
+
+
+}
+.table-container::-webkit-scrollbar {
+	height: 8px !important;
+
+}
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #c5c4c4;
+    border-radius: 5px;
+}
+
+	
+
+table {
+	width: 100%;
+	/* overflow-x: scroll; */
+}
+
+thead th {
+	border-bottom: 1px solid;
+}
+
+table thead tr th {
+	color: #525559;
+	font-size: 16.89px;
+	font-style: italic;
+	font-weight: 400;
+}
+
+
+th,
+td {
+	border-bottom: 1px solid #979595;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	word-break: break-all;
+
+}
+
+.table,
+.days {
+	height: 22px;
+	width: 22px;
+	background-color: #D9D9D9;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.class {
+	font-size: 11px;
+	color: #fff;
+	background-color: #05ADA6;
+	width: 70px;
+	height: 24px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.class p {
+	font-size: 11px;
+	margin-top: 4px;
+}
+
+.days-no {
+	font-size: 14px;
+	height: 22px;
+	width: 22px;
+	border-radius: 5px;
+}
+
+.stand-up p {
+	margin-top: 4px;
+	font-size: 11px;
+}
+
+.stand-up {
+	text-align: center;
+	font-size: 11px;
+	color: #fff;
+	background-color: #096361;
+	width: 70px;
+	height: 24px;
+	border-radius: 5px;
+}
+
+.absent-col {
+	width: 35px;
+	height: 35px;
+	border: 1px solid #C4C4C4;
+	border-radius: 10px;
+	margin-left: 70px;
+}
+
+.absent-col p {
+	color: #525559;
+	font-size: 17.89px;
+	margin-top: 3px;
+	text-align: center;
+	font-style: normal;
+	font-weight: 700;
+}
+
+
+.day-number {
+	display: flex;
+	gap: 5px;
+	margin-left: 84px;
+
+}
+
+.redmark {
+	background: #C11C1C;
+
+}
+
+.yellowmark {
+	background: #CAC553;
+
+}
+
+.greenmark {
+	background: #6EB88B;
+
+}
+
+.purplemark {
+	background: #8949A7;
+
+}
+
+.pagination {
+	display: flex;
+	justify-content: end;
+	padding: 20px 40px;
+	
+}
+
+.popup {
+	align-items: center;
+	position: absolute;
+	/* top: 40%; */
+	/* left: 80%; */
+	width: 200px;
+	height: 226px;
+	background-color: white;
+	color: #C4C4C4;
+	border-radius: 12px;
+	font-weight: 400;
+	font-size: 17px;
+	display: none;
+	padding: 30px 20px;
+	border: 1px solid;
+}
+
+
+@media (max-width: 2270px) {
+	table {
+		width: 98%;
+	}
+
+}
+
+@media (max-width:2000px) {
+	table {
+		width: 127.5%;
+	}
+
+	.attendence-container {
+		width: 80%;
+	}
+}
+
+@media (max-width:1360px) {
+	.attendence-container {
+		width: 80vw;
+	}
+}
+
+@media (max-width:1340px) {
+	.attendence-container {
+		width: 80%;
+	}
+}
+
+@media (max-width:1330px) {
+	.attendence-container {
+		width: 80%;
+	}
+}
+
+@media (max-width:1320px) {
+	.attendence-container {
+		width: 80%;
+	}
+}
+
+@media (max-width:1310px) {
+	.attendence-container {
+		width: 78%;
+	}
+}
+
+@media (max-width:1320px) {
+	.info-label {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.label-wrap-1 {
+		margin-top: -30px;
+	}
+
+}
+
+@media (max-width:1220px) {
+	.attendence-container {
+		width: 77%;
+	}
+}
+
+@media (max-width:1170px) {
+	.attendence-container {
+		width: 76%;
+	}
+}
+
+@media (max-width:1120px) {
+	.attendence-container {
+		width: 75%;
+	}
+}
+
+@media (max-width:1175px) {
+	.attendence-container {
+		width: 74%;
+	}
+}
+
+@media (max-width:1040px) {
+	.attendence-container {
+		width: 73%;
+	}
+}
+
+@media (max-width:990px) {
+	.attendence-container {
+		width: 100%;
+		
+	}
+}
+
+@media (max-width:700px) {
+	.attendence-info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.label-wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.label-wrap-1 {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.info-label {
+		gap: 30px;
+		width: 100%;
+	}
+
+	.panel-head {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+	}
+
+}
+@media (max-width:600px) {
+	.attendence-container{
+		padding-left: 20px;
+		padding-right: 20px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+	.table-container{
+		margin: 0px ;
+	}
+	.panel-head{
+		padding: 0;
+		margin: 0;
+		
+	}
+}
+
+@media (max-width:400px) {
+	.select-box {
+		width: 142px;
+		height: 30px;
+		font-size: 16px;
+	}
+
+	.month-select {
+		padding-left: 2px;
+		width: 140px;
+		height: 30px;
+		font-size: 16px;
+	}
+
+	.attendence-container h4 {
+		font-size: 30px;
+	}
+
+}
+
+@media (max-width:310px) {
+	.attendence-container{
+		margin-top: 80px;
+		
+	}
+	.month-select{
+		font-size: 15px;
+	}
+	
+}
+
+ 
+@media (max-width:992px){
+	.container-head{
+		margin-top: 96px;
+	} 
+	.attendence-container {
+		 
+		margin-top:0px;
+		 
+	
+	}
+}

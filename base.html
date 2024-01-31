@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link
+      rel="shortcut icon"
+      href="/static/images/fuchi_symbol_rgb-white.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="attendence.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Academy</title>
+  </head>
+
+  <body>
+    <header class="position-absolute w-100 overflow-hidden">
+      <div
+        class="top-nav-inner d-flex align-items-center justify-content-between"
+      >
+        <a href="/" class="nav-brand">
+          <img src="/static/images/fuchi_hoz_rgb-white.png" alt="" />
+        </a>
+        <div class="nav-links">
+          <a href="/#subscriptions">Subscriptions</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/videos/recent">Recent Videos</a>
+          <a href="/videos/folders">All Videos</a>
+          <a href="/faq">FAQ</a>
+          <a href="/contact" class="a-inuser">Contact Us</a>
+        </div>
+        <div class="nav-actions d-flex align-items-center">
+          <a class="btn text-info bg-white nav-auth-btn" href="/login">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+            <span>Login</span>
+          </a>
+          <a
+            class="btn text-white bg-info nav-subscribe-btn ml-4"
+            href="/#subscriptions"
+            >Subscribe</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <div id="mainContent" class="main-content">
+      <div id="left_menu" class="left-menu">
+        <div class="left-side" id="open_left">
+          <!-- Two buttoms controlling the left bar to open and close -->
+          <a
+            href="javascript:void(0)"
+            class="closebtn"
+            id="closebtn"
+            onclick="closeNav()"
+            ><i class="fa fa-times" aria-hidden="true"></i
+          ></a>
+
+          <!-- <span style="font-size:30px;cursor:pointer;" id="openbnt" onclick="openNav()">&#9776;</span> -->
+
+          <!-- User logo and first and last name -->
+          <div class="user-info" id="user-info">
+            <a href="/profile/{{ user.username }}" class="d-block"
+              ><img
+                src="/static/images/user-avatar-1.png"
+                class="d-block mx-auto"
+                alt="user-avatar"
+            /></a>
+            <h2 class="text-center font-weight-bold">Mathew Alex</h2>
+            <p class="text-center font-weight-bold mb-0 txt-uppercase">
+              MENTOR
+            </p>
+          </div>
+
+          <ul id="user-options" class="dropdown">
+            <li
+              class="mt-1"
+              style="{% if request.path == '/mentors/dashboard' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a
+                href="/mentors/dashboard"
+                class="font-weight-bold d-flex align-items-center"
+              >
+                <span class="svg-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M4.29289 4.29289C4.10536 4.48043 4 4.73478 4 5V7C4 7.26522 4.10536 7.51957 4.29289 7.70711C4.48043 7.89464 4.73478 8 5 8H19C19.2652 8 19.5196 7.89464 19.7071 7.70711C19.8946 7.51957 20 7.26522 20 7V5C20 4.73478 19.8946 4.48043 19.7071 4.29289C19.5196 4.10536 19.2652 4 19 4H5C4.73478 4 4.48043 4.10536 4.29289 4.29289Z"
+                      stroke="#525559"
+                      stroke-width="2.04493"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M4.29289 12.2929C4.10536 12.4804 4 12.7348 4 13V19C4 19.2652 4.10536 19.5196 4.29289 19.7071C4.48043 19.8946 4.73478 20 5 20H11C11.2652 20 11.5196 19.8946 11.7071 19.7071C11.8946 19.5196 12 19.2652 12 19V13C12 12.7348 11.8946 12.4804 11.7071 12.2929C11.5196 12.1054 11.2652 12 11 12H5C4.73478 12 4.48043 12.1054 4.29289 12.2929Z"
+                      stroke="#525559"
+                      stroke-width="2.04493"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M16.2929 12.2929C16.1054 12.4804 16 12.7348 16 13V19C16 19.2652 16.1054 19.5196 16.2929 19.7071C16.4804 19.8946 16.7348 20 17 20H19C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19V13C20 12.7348 19.8946 12.4804 19.7071 12.2929C19.5196 12.1054 19.2652 12 19 12H17C16.7348 12 16.4804 12.1054 16.2929 12.2929Z"
+                      stroke="#525559"
+                      stroke-width="2.04493"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="mx-1">Dashboard</span>
+              </a>
+            </li>
+            <li
+              class="mt-1"
+              style="{% if request.path == '/mentors/history' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a
+                href="/mentors/history"
+                class="font-weight-bold d-flex align-items-center"
+              >
+                <span class="svg-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M10 21.001H17C17.5304 21.001 18.0391 20.7903 18.4142 20.4152C18.7893 20.0401 19 19.5314 19 19.001V9.41498C18.9999 9.14978 18.8945 8.89547 18.707 8.70798L13.293 3.29398C13.1055 3.10643 12.8512 3.00103 12.586 3.00098H7C6.46957 3.00098 5.96086 3.21169 5.58579 3.58676C5.21071 3.96184 5 4.47054 5 5.00098V16.001M5 21.001L9.879 16.122M9.879 16.122C10.1567 16.4043 10.4876 16.6289 10.8525 16.7827C11.2174 16.9365 11.6092 17.0166 12.0052 17.0182C12.4012 17.0199 12.7936 16.9431 13.1598 16.7924C13.5261 16.6416 13.8588 16.4198 14.1388 16.1398C14.4189 15.8598 14.6408 15.5271 14.7916 15.161C14.9425 14.7948 15.0193 14.4024 15.0177 14.0064C15.0162 13.6104 14.9362 13.2186 14.7825 12.8536C14.6287 12.4887 14.4043 12.1577 14.122 11.88C13.5579 11.3249 12.7973 11.0151 12.0059 11.0183C11.2145 11.0214 10.4564 11.3371 9.8967 11.8967C9.33702 12.4562 9.02111 13.2143 9.0178 14.0057C9.01448 14.7971 9.32402 15.5578 9.879 16.122Z"
+                      stroke="#525559"
+                      stroke-width="2.04493"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="mx-1">History</span>
+              </a>
+            </li>
+            <li
+              style="{% if request.path == '/mentors/paypal' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a href="/mentors/paypal" class="side-bar-sub-link">Paypal</a>
+            </li>
+            <li
+              style="{% if request.path == '/mentors/mentor_changes' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a href="/mentors/mentor_changes" class="side-bar-sub-link"
+                >Mentor Changes</a
+              >
+            </li>
+            <li
+              style="{% if request.path == '/mentors/update_user' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a href="/mentors/update_user" class="side-bar-sub-link"
+                >User Updates</a
+              >
+            </li>
+            <li
+              style="{% if request.path == '/mentors/github_activitys' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a href="/mentors/github_activitys" class="side-bar-sub-link"
+                >Github Activity</a
+              >
+            </li>
+            <li
+              style="{% if request.path == '/mentors/recent_subscribers' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a href="/mentors/recent_subscribers" class="side-bar-sub-link"
+                >Recent Subscribers</a
+              >
+            </li>
+            <li
+              class="mt-1"
+              style="{% if request.path == '/mentors/manage_user' %}{{ 'background-color:#F3F1F1' }}{% endif %}"
+            >
+              <a
+                href="/mentors/manage_user"
+                class="font-weight-bold d-flex align-items-center"
+              >
+                <span class="svg-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M17 20H22V18C22 17.3765 21.8057 16.7686 21.4441 16.2606C21.0826 15.7527 20.5718 15.37 19.9827 15.1658C19.3937 14.9615 18.7556 14.9459 18.1573 15.121C17.5589 15.2962 17.03 15.6534 16.644 16.143M17 20H7M17 20V18C17 17.344 16.874 16.717 16.644 16.143M16.644 16.143C16.2726 15.215 15.6318 14.4195 14.804 13.8591C13.9762 13.2988 12.9996 12.9993 12 12.9993C11.0004 12.9993 10.0238 13.2988 9.196 13.8591C8.36825 14.4195 7.72736 15.215 7.356 16.143M7 20H2V18C2.00005 17.3765 2.19434 16.7686 2.55586 16.2606C2.91739 15.7527 3.42819 15.37 4.01725 15.1658C4.60632 14.9615 5.24438 14.9459 5.84274 15.121C6.4411 15.2962 6.97003 15.6534 7.356 16.143M7 20V18C7 17.344 7.126 16.717 7.356 16.143M15 7C15 7.79565 14.6839 8.55871 14.1213 9.12132C13.5587 9.68393 12.7956 10 12 10C11.2044 10 10.4413 9.68393 9.87868 9.12132C9.31607 8.55871 9 7.79565 9 7C9 6.20435 9.31607 5.44129 9.87868 4.87868C10.4413 4.31607 11.2044 4 12 4C12.7956 4 13.5587 4.31607 14.1213 4.87868C14.6839 5.44129 15 6.20435 15 7ZM21 10C21 10.5304 20.7893 11.0391 20.4142 11.4142C20.0391 11.7893 19.5304 12 19 12C18.4696 12 17.9609 11.7893 17.5858 11.4142C17.2107 11.0391 17 10.5304 17 10C17 9.46957 17.2107 8.96086 17.5858 8.58579C17.9609 8.21071 18.4696 8 19 8C19.5304 8 20.0391 8.21071 20.4142 8.58579C20.7893 8.96086 21 9.46957 21 10ZM7 10C7 10.5304 6.78929 11.0391 6.41421 11.4142C6.03914 11.7893 5.53043 12 5 12C4.46957 12 3.96086 11.7893 3.58579 11.4142C3.21071 11.0391 3 10.5304 3 10C3 9.46957 3.21071 8.96086 3.58579 8.58579C3.96086 8.21071 4.46957 8 5 8C5.53043 8 6.03914 8.21071 6.41421 8.58579C6.78929 8.96086 7 9.46957 7 10Z"
+                      stroke="#525559"
+                      stroke-width="2.04493"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="mx-1">Manage Users</span>
+              </a>
+            </li>
+          </ul>
+          <a href="/dashboard"
+            ><button class="btn text-white bg-info mx-auto d-block">
+              SWITCH
+            </button></a
+          >
+        </div>
+      </div>
+      <div class="attendence-container">
+        <button class="toggle-menu" id="toggle-menu-btn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+        <div class="container-head">
+          <h4>Attendence</h4>
+          <div class="attendence-info">
+            <div class="info-label">
+              <div class="label-wrap">
+                <div class="" style="display: flex">
+                  <div
+                    style="
+                      height: 15px;
+                      width: 15px;
+                      background-color: #6eb88b;
+                      border-radius: 5px;
+                    "
+                  ></div>
+                  <p>Present</p>
+                </div>
+                <div style="display: flex">
+                  <div
+                    style="
+                      height: 15px;
+                      width: 15px;
+                      background-color: #cac553;
+                      border-radius: 5px;
+                    "
+                  ></div>
+                  <p>Notified Absence</p>
+                </div>
+                <div style="display: flex">
+                  <div
+                    style="
+                      height: 15px;
+                      width: 15px;
+                      background-color: #c11c1c;
+                      border-radius: 5px;
+                    "
+                  ></div>
+                  <p>Absent</p>
+                </div>
+              </div>
+              <div class="label-wrap-1">
+                <div style="display: flex">
+                  <div
+                    style="
+                      height: 15px;
+                      width: 15px;
+                      background-color: #13649e;
+                      border-radius: 5px;
+                    "
+                  ></div>
+                  <p>New Join</p>
+                </div>
+                <div style="display: flex">
+                  <div
+                    style="
+                      height: 15px;
+                      width: 15px;
+                      background-color: #8949a7;
+                      border-radius: 5px;
+                    "
+                  ></div>
+                  <p>Canceled</p>
+                </div>
+              </div>
+            </div>
+            <div class="select-container">
+              <span>Plan</span>
+              <select class="select-box" name="" id="">
+                <option value="">Basic</option>
+                <option value="">Contribution</option>
+                <option value="">Pro</option>
+                <option value="">Premium</option>
+              </select>
+              <div style="margin-top: 11px">
+                <div>
+                  <img
+                    style="rotate: 180deg; width: 18px"
+                    src="static/images/arrow-icom.svg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    style="margin-top: -24px; width: 18px"
+                    src="static/images/arrow-icom.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="attendence-panel">
+          <div class="panel-head">
+            <div>
+              <h5>Basic Attendence</h5>
+              <p>January 2023</p>
+            </div>
+            <div style="margin-top: -60px" class="select-container">
+              <span>Month</span>
+              <select class="month-select" name="" id="">
+                <option value="">January 2023</option>
+                <option value="">February 2023</option>
+                <option value="">March 2023</option>
+                <option value="">April 2023</option>
+                <option value="">May 2023</option>
+                <option value="">June 2023</option>
+                <option value="">July 2023</option>
+                <option value="">August 2023</option>
+                <option value="">September 2023</option>
+                <option value="">October 2023</option>
+                <option value="">November 2023</option>
+                <option value="">December 2023</option>
+              </select>
+              <div style="margin-top: 11px">
+                <div>
+                  <img
+                    style="rotate: 180deg; width: 18px"
+                    src="static/images/arrow-icom.svg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    style="margin-top: -24px; width: 18px"
+                    src="static/images/arrow-icom.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th><div style="width: 100px">Status</div></th>
+                  <th>
+                    <div style="width: 190px">Github / Name / Expire</div>
+                  </th>
+                  <th>
+                    <div style="width: 130px; margin-left: 40px">
+                      Absent Total
+                    </div>
+                  </th>
+                  <th>
+                    <div class="day-number">
+                      <div class="days-no">1</div>
+                      <div class="days-no">2</div>
+                      <div class="days-no">3</div>
+                      <div class="days-no">4</div>
+                      <div class="days-no">5</div>
+                      <div class="days-no">6</div>
+                      <div class="days-no">7</div>
+                      <div class="days-no">8</div>
+                      <div class="days-no">9</div>
+                      <div class="days-no">10</div>
+                      <div class="days-no">11</div>
+                      <div class="days-no">12</div>
+                      <div class="days-no">13</div>
+                      <div class="days-no">14</div>
+                      <div class="days-no">15</div>
+                      <div class="days-no">16</div>
+                      <div class="days-no">17</div>
+                      <div class="days-no">18</div>
+                      <div class="days-no">19</div>
+                      <div class="days-no">20</div>
+                      <div class="days-no">21</div>
+                      <div class="days-no">22</div>
+                      <div class="days-no">23</div>
+                      <div class="days-no">24</div>
+                      <div class="days-no">25</div>
+                      <div class="days-no">26</div>
+                      <div class="days-no">27</div>
+                      <div class="days-no">28</div>
+                      <div class="days-no">29</div>
+                      <div class="days-no">30</div>
+                      <div class="days-no">31</div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <hr style="border-color: #979595; margin-top: -4px" />
+
+              <tbody>
+                <tr>
+                  <td style="width: 205px">
+                    <div
+                      class="status"
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td style="width: 300px">
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td style="width: 310px">
+                    <div class="absent-col">
+                      <p>5</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>3</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>1</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>5</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>3</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>1</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background: #de0808;
+
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>5</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days yellowmark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div
+                      style="
+                        width: 20px;
+                        height: 20px;
+                        background-color: #05ada6;
+                        border-radius: 50px;
+                        margin-left: 15px;
+                      "
+                    ></div>
+                  </td>
+                  <td>
+                    <span style="">fsadykov | Farkhod Saydkov </span><br />
+                    <span style="">expire: 12/12/0000</span>
+                  </td>
+                  <td>
+                    <div style="" class="absent-col">
+                      <p>3</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="class-attendence"
+                      style="display: flex; gap: 5px"
+                    >
+                      <div class="class"><p>Class</p></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days greenmark"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days yellowmark"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days purplemark"></div>
+                      <div class="days"></div>
+                      <div class="days redmark"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                      <div class="days"></div>
+                    </div>
+                    <div
+                      class="stand-up-attendence"
+                      style="display: flex; gap: 5px; margin-top: 10px"
+                    >
+                      <div class="stand-up"><p>Stand-up</p></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days greenmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div
+                        onclick="togglePopup()"
+                        class="days purplemark"
+                      ></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days redmark"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                      <div onclick="togglePopup()" class="days"></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="popup" id="popup-1">
+          <div onclick="togglePopupClose()" style="cursor: pointer">Absent</div>
+          <div
+            onclick="togglePopupClose()"
+            style="margin-top: 8px; cursor: pointer"
+          >
+            Notified Absence
+          </div>
+          <div
+            onclick="togglePopupClose()"
+            style="margin-top: 8px; cursor: pointer"
+          >
+            Absent
+          </div>
+          <div
+            onclick="togglePopupClose()"
+            style="margin-top: 8px; cursor: pointer"
+          >
+            New Join
+          </div>
+          <div
+            onclick="togglePopupClose()"
+            style="margin-top: 8px; cursor: pointer"
+          >
+            Canceled
+          </div>
+        </div>
+
+        <div class="pagination">
+          <a href="">1 |</a>
+          <a href="">2 <nbsp></nbsp>|</a>
+          <a href="">Next</a>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center">
+      <div class="footer-inner">
+        <div
+          class="footer-links-box d-flex justify-content-between align-items-center"
+        >
+          <a href="/">
+            <img src="/static/images/fuchi_hoz_rgb-white 2.png" alt="Logo" />
+          </a>
+          <div class="footer-links d-mobile-none">
+            <a href="/">About Project</a>
+            <a href="/#subscriptions">Subscriptions</a>
+            <a href="/faq">FAQ</a>
+            <a href="/contact">Contact Us</a>
+          </div>
+          <div class="footer-social-links d-flex">
+            <a
+              href="/"
+              class="d-flex align-items-center justify-content-center"
+            >
+              <img src="/static/images/github-icon.png" alt="Github" />
+            </a>
+            <a
+              href="/"
+              class="d-flex align-items-center justify-content-center"
+            >
+              <img src="/static/images/instagram-icon.png" alt="Instagram" />
+            </a>
+            <a
+              href="/"
+              class="d-flex align-items-center justify-content-center"
+            >
+              <img src="/static/images/slack-icon.png" alt="Slack" />
+            </a>
+          </div>
+        </div>
+        <div
+          class="d-flex justify-content-between align-items-center footer-bottom"
+        >
+          <p class="mb-3">©2023 FuchiCorp LLC. ALL Rights reserved.</p>
+          <div class="d-flex align-items-center mb-3">
+            <p class="d-flex align-items-center">
+              <img
+                src="/static/images/phone-call-white.png"
+                alt=""
+                class="mr-3"
+              />
+              872.772.0715
+            </p>
+            <p class="mx-3">|</p>
+            <p class="d-flex align-items-center">
+              <img
+                src="/static/images/envelope-white.png"
+                alt=""
+                class="mr-3"
+              />
+              contact@fuchicorp.com
+            </p>
+          </div>
+          <div class="mb-3">
+            <a href="/" class="mr-3">Privacy policy</a>
+            <a href="/">Terms of service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="attenndence.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
